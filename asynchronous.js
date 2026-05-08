@@ -1,58 +1,43 @@
-console.log("--- Step 1: Sync ---");
+console.log("--- 1. Synchronous Flow ---");
 console.log("A");
 console.log("B");
 console.log("C");
 
-console.log("\n--- Step 2: setTimeout ---");
+console.log("\n--- 2 & 3. Queue Priority ---");
 console.log("Start");
 
 setTimeout(() => {
-    console.log("Timeout");
+    console.log("Timeout (Macrotask)");
 }, 0);
 
-console.log("End");
-
-console.log("\n--- Step 3: Promise ---");
-console.log("Start");
-
 Promise.resolve().then(() => {
-    console.log("Promise");
+    console.log("Promise (Microtask)");
 });
 
 console.log("End");
 
-console.log("\n--- Step 4: Comparison ---");
-console.log("Start");
+console.log("\n--- 5. Async/Await Logic ---");
 
-setTimeout(() => {
-    console.log("Timeout");
-}, 0);
-
-Promise.resolve().then(() => {
-    console.log("Promise");
-});
-
-console.log("End");
-
-console.log("\n--- Step 5: Async/Await ---");
-
-async function test() {
-    console.log("1"); // Runs synchronously until 'await'
-    await Promise.resolve();
-    console.log("2"); // Becomes a microtask
+async function asyncTest() {
+    console.log("1 (Inside Async)"); 
+    await Promise.resolve(); 
+    console.log("2 (After Await)"); 
 }
 
-console.log("3");
-test();
-console.log("4");
+console.log("3 (Before Calling Async)");
+asyncTest();
+console.log("4 (After Calling Async)");
 
-console.log("\n--- Step 6: Advanced Challenge ---");
+console.log("\n--- 6. Final Execution Challenge ---");
 
-console.log("A");
+console.log("A"); 
+
 setTimeout(() => {
-    console.log("B");
+    console.log("B"); 
 }, 0);
+
 Promise.resolve().then(() => {
-    console.log("C");
+    console.log("C"); 
 });
+
 console.log("D");
